@@ -5,7 +5,7 @@
       <span class="iconfont back-icon">&#xe600;</span>
       </router-link>
     </div>
-    <div class="header-bar" v-else>
+    <div class="header-bar" v-else :style="opacityStyle">
       <router-link to="/">
   <div class="iconfont left-icon">&#xe624;</div>
       </router-link>
@@ -18,14 +18,33 @@ export default {
   name: "DetailHeader",
   data() {
     return {
-      // headerShow: true
+      headerShow: false,
+      opacityStyle: {
+        opacity: 0
+      }
     };
   },
-  props: {
-    headerShow: Boolean
+  methods: {
+    handleScroll() {
+      const top =
+        document.documentElement.scrollTop ||
+        window.pageYOffset ||
+        document.body.scrollTop;
+      if (top > 10) {
+        let opacity = top / 140;
+        opacity = opacity > 1 ? 1 : opacity;
+        this.opacityStyle = { opacity };
+        this.headerShow = false;
+      } else {
+        this.headerShow = true;
+      }
+    }
   },
   mounted() {
-    // window.addEventListener("scroll", this.handleScroll);
+    window.addEventListener("scroll", this.handleScroll);
+  },
+  unmounted() {
+    window.removeEventListener("scroll", this.handleScroll);
   }
 };
 </script>

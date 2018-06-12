@@ -1,22 +1,28 @@
 <template>
-  <div>
-    <detail-header :headerShow="headerShow"></detail-header>
-    <detail-body @change="handleScroll"></detail-body>
+  <div class="basement" ref="wrappers">
+    <ul class="wrapper">
+    <li is="detail-header"></li>
+    <li is="detail-banner"></li>
+    <li class="content">
+    <detail-body></detail-body>
+    </li>
+    </ul>
   </div>
 </template>
 <script>
-import DetailBody from "./components/DetailBody";
+import BScroll from "better-scroll";
+import DetailBanner from "./components/DetailBanner";
 import DetailHeader from "./components/DetailHeader";
+import DetailBody from "./components/DetailBody";
 export default {
   name: "Detail",
   data() {
-    return {
-      headerShow: true
-    };
+    return {};
   },
   components: {
-    DetailBody,
-    DetailHeader
+    DetailBanner,
+    DetailHeader,
+    DetailBody
   },
   methods: {
     getImgsInfo() {
@@ -33,12 +39,21 @@ export default {
           console.log("err");
         }
       );
-    },
-    handleScroll(headerShow) {
-      this.headerShow = headerShow;
     }
   }
 };
 </script>
 <style lang="stylus" scoped>
+.basement {
+  width: 100%;
+
+  .content {
+    position: relative;
+    top: -0.1rem;
+    width: 100%;
+    height: 100vh;
+    border-radius: 0.2rem 0.2rem 0 0;
+    background: #eee;
+  }
+}
 </style>
