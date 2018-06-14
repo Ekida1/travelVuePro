@@ -26,6 +26,7 @@ export default {
 </script>
 <style lang="stylus" scoped>
 @import '~styles/mixins.styl';
+@import '~styles/varibles.styl';
 
 .detail-topindex {
   overflow: hidden;
@@ -47,12 +48,12 @@ export default {
 
     .score-number {
       font-size: 0.45rem;
-      color: #FFA500;
+      color: $ProYellow;
     }
 
     .score-text {
       font-size: 0.25rem;
-      color: #FFA500;
+      color: $ProYellow;
     }
 
     .right-icon {
@@ -67,7 +68,7 @@ export default {
       left: 0;
       bottom: -0.4rem;
       font-size: 0.21rem;
-      color: #969696;
+      color: $ProGrey;
     }
   }
 
@@ -91,7 +92,7 @@ export default {
 
     .score-text {
       font-size: 0.25rem;
-      color: #FFA500;
+      color: $ProYellow;
       margin-left: 0.2rem;
     }
 
@@ -107,7 +108,7 @@ export default {
       bottom: -0.4rem;
       margin-left: 0.2rem;
       font-size: 0.21rem;
-      color: #969696;
+      color: $ProGrey;
     }
   }
 }
