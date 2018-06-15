@@ -31,7 +31,7 @@
    </div>
 
    <pay-pop-over :payPopOverShow="payPopOverShow" @closePopOver="closePopOver"></pay-pop-over>
-   <detail-pop-over :detailPopOverShow="detailPopOverShow" @closePopOver="closePopOver"></detail-pop-over>
+   <detail-pop-over :detailPopOverShow="detailPopOverShow" :popOverPayCard="popOverPayCard" @closePopOver="closePopOver"></detail-pop-over>
    <div class="mask" v-show="payPopOverShow || detailPopOverShow" @click="closePopOver"></div>
   </div>
 </template>
@@ -53,6 +53,7 @@ export default {
   },
   methods: {
     popOverPayCard(e) {
+      this.detailPopOverShow = false;
       this.payPopOverShow = true;
       e.stopPropagation(); //非IE浏览器
       window.event.cancelBubble = true; //IE浏览器

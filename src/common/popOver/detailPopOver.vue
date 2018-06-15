@@ -90,7 +90,7 @@
         </div>
          <div class="popOverFooter">
             <div class="footerLeft"><em class="priceicon">在线支付</em><span class="priceNumber">108</span></div>
-            <div class="footerRight">立即预订</div>
+            <div class="footerRight" @click="toPayCard">立即预订</div>
           </div>
       </div>
     </transition>
@@ -102,13 +102,17 @@ import BScroll from "better-scroll";
 export default {
   name: "DetailPopOver",
   props: {
-    detailPopOverShow: Boolean
+    detailPopOverShow: Boolean,
+    popOverPayCard: Function
   },
   methods: {
     closePopOver() {
       this.popPvershow = this.detailPopOverShow;
       this.popPvershow = false;
       this.$emit("closePopOver", this.popPvershow);
+    },
+    toPayCard(e) {
+      this.popOverPayCard(e);
     }
   },
   mounted() {
@@ -208,7 +212,7 @@ export default {
       bottom: 1rem;
       right: 0;
       overflow: hidden;
-      color: #616161;
+      color: $ProGrey;
 
       .itemTitle {
         position: relative;
@@ -274,6 +278,9 @@ export default {
       background: $ProYellow;
 
       .footerLeft {
+        display: flex;
+        justify-content: flex-start;
+        align-items: baseline;
         width: 50%;
         text-align: center;
         background: #fff;
@@ -281,9 +288,11 @@ export default {
         .priceicon {
           color: #999;
           font-size: 0.24rem;
+          padding-left: 0.2rem;
         }
 
         .priceNumber {
+          font-size: 0.48rem;
           color: $ProYellow;
         }
 

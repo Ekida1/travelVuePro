@@ -6,6 +6,7 @@ import router from './router'
 import fastClick from 'fastclick'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import VueResource from 'vue-resource'
+import base from './common/base.js'
 import store from './storeVuex'
 import 'styles/reset.css'
 import 'styles/border.css'
@@ -16,6 +17,7 @@ Vue.config.productionTip = false
 fastClick.attach(document.body)
 Vue.use(VueResource)
 Vue.use(VueAwesomeSwiper)
+Vue.use(base)
 
 
 

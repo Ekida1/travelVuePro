@@ -3,16 +3,16 @@
     <transition name="PopOver">
     <div class="payPopOver" v-show="payPopOverShow">
       <span class="iconfont closeicon" @click="closePopOver">&#xe670;</span>
-      <h5 class="payPopOverTitle">【全天通票】国色天乡陆地乐园成人游乐套票</h5>
+      <div class="payPopOverTitle">【全天通票】国色天乡陆地乐园成人游乐套票</div>
       <p>
         <span class="priceNumber">108</span><span class="litterBox"><span class="boxLeft">赠券</span><span class="boxRight">18</span></span>
       </p>
       <div class="DateTitle">价格日历</div>
       <ul class="payPopOverDateList">
-        <li>今天</li>
-        <li>明天</li>
-        <li>后天</li>
-        <li>其他日期</li>
+        <li class="datebox" @click="pickDate"><div class="dateText">今天</div><div class="datecontent">{{today}}</div></li>
+        <li class="datebox" @click="pickDate"><div class="dateText">明天</div><div class="datecontent">{{tomorrow}}</div></li>
+        <li class="datebox" @click="pickDate"><div class="dateText">后天</div><div class="datecontent">{{aftertomorrow}}</div></li>
+        <li class="datebox"><div class="otherdate">其他日期</div></li>
       </ul>
       <div class="payPopOverFooter">需要在游玩当天的14:00前预订：预定后2小时才能入围</div>
       <button class="payBtn">立即预订</button>
@@ -21,11 +21,14 @@
   </div>
 </template>
 <script>
+import moment from "moment";
 export default {
   name: "PayPopOver",
   data() {
     return {
-      dialogVisible: false
+      todayDateArray: ["1", "1", "2000"],
+      tomorrowDateArray: ["1", "2", "2000"],
+      afterTomorrowDateArray: ["1", "3", "2000"]
     };
   },
   props: {
@@ -36,7 +39,30 @@ export default {
       this.popPvershow = this.payPopOverShow;
       this.popPvershow = false;
       this.$emit("closePopOver", this.popPvershow);
-    }
+    },
+    pickDate() {}
+  },
+  created() {
+    this.todayDateArray = moment()
+      .format("l")
+      .split("/");
+    this.today = this.todayDateArray[0] + "月" + this.todayDateArray[1] + "日";
+    this.tomorrowDateArray = moment()
+      .add(1, "days")
+      .format("l")
+      .split("/");
+    this.tomorrow =
+      this.tomorrowDateArray[0] + "月" + this.tomorrowDateArray[1] + "日";
+    this.afterTomorrowDateArray = moment()
+      .add(1, "days")
+      .add(1, "days")
+      .format("l")
+      .split("/");
+    this.aftertomorrow =
+      this.afterTomorrowDateArray[0] +
+      "月" +
+      this.afterTomorrowDateArray[1] +
+      "日";
   }
 };
 </script>
@@ -66,11 +92,11 @@ export default {
   }
 
   .PopOver-enter-active {
-    animation: slide-in 1s;
+    animation: slide-in 0.5s;
   }
 
   .PopOver-leave-active {
-    animation: slide-out 1s;
+    animation: slide-out 0.8s;
   }
 
   .payPopOver {
@@ -87,10 +113,11 @@ export default {
       position: absolute;
       top: 0;
       right: 0;
-      padding: 0.2rem 0.2rem;
+      padding: 0.15rem 0.15rem;
     }
 
     .payPopOverTitle {
+      min-height: 0.7rem;
       padding: 0.4rem 0.3rem 0 0.15rem;
       font-size: 0.35rem;
       ellipsis();
@@ -147,15 +174,35 @@ export default {
       justify-content: center;
       width: 100%;
 
-      li {
+      .datebox {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         height: 0.8rem;
-        line-height: 0.8rem;
+        line-height: 0.5rem;
         border: 0.01rem solid $ProGrey;
-        padding: 0.03rem 0.5rem;
+        padding: 0.03rem 0.35rem;
         margin: 0.1rem 0.08rem;
-        font-size: 0.24rem;
         border-radius: 0.1rem;
-        // background: $bgColor;
+        white-space: nowrap;
+
+        .dateText {
+          height: 50%;
+          font-size: 0.28rem;
+          color: $darkTextColor;
+        }
+
+        .datecontent {
+          height: 50%;
+          font-size: 0.24rem;
+          color: $ProGrey;
+        }
+
+        .otherdate {
+          line-height: 0.8rem;
+          font-size: 0.28rem;
+          color: $darkTextColor;
+        }
       }
     }
 
